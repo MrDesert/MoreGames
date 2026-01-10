@@ -7,10 +7,11 @@
         <h1>MoreGames</h1>
         <h3>Компьютер загадал число от 1 до 10. Угадай его!</h2>
         <div id="messageID"></div>
-        <p id="numberID"></p>
+        <p id="numberAttemptsID"></p>
         <input id="numberToCheckID" type="number">
-        <button onclick="checkNumber()">Проверить число</button>
-        <footer style="position: fixed; bottom: 0px; left:50%; transform: translateX(-50%);">© by MrDesert - alpha v0.0.1.0</footer>
+        <button id="checkNumberBtnID" onclick="checkNumber()">Проверить число</button>
+        <button onclick="newNumber()">Новое число!</button>
+        <footer style="position: fixed; bottom: 0px; left:50%; transform: translateX(-50%);">© by MrDesert - alpha v0.0.2.0</footer>
 
         <script src="main.js"></script>
         <script src="1_guess_number.js"></script>
