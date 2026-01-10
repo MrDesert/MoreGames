@@ -7,25 +7,37 @@
                 <script src="main.js"></script>
         <h1>MoreGames</h1>
         <div>
-            <h4>Выберите режим</h4>
-            <button onclick="gameMode(10)">Новичок 1-10</button>
-            <button onclick="gameMode(100)">Классика 1-100</button>
-            <button onclick="gameMode(1000)">Сложный 1-1000</button>
-            <button onclick="gameMode(10000)">Эксперт 1-10000</button>
-            <button id="customBtnID" onclick="gameMode(document.getElementById('customRangeID').value)" disabled>Пользовательский</button>
-            <input type="number" id="customRangeID" placeholder="Введите размер диапазона">
+            <button id="modePC" onclick="gameMode(this)">Вы отгадываете, компьютер загадывает</button>
+            <button id="modeMan" onclick="gameMode(this)">Вы загадываете, компьютер отгадывает</button>
         </div>
-        <div id="gameID" hidden>
+        <div>
+            <h4>Выберите режим</h4>
+            <button id="modeA" value="10" onclick="difficulty(this)">Новичок 1-10</button>
+            <button id="modeB" value="100" onclick="difficulty(this)">Классика 1-100</button>
+            <button id="modeC" value="1000" onclick="difficulty(this)">Сложный 1-1000</button>
+            <button id="modeD" value="10000" onclick="difficulty(this)">Эксперт 1-10000</button>
+            <button id="modeE" onclick="difficulty(this)">Пользовательский 1-∞</button>
+            <input type="number" id="customRangeID" placeholder="Введите размер диапазона" hidden>
+        </div>
+        <div id="gameAll">
             <h3 id="taskID"></h3>
             <div id="messageID"></div>
             <p id="numberAttemptsID"></p>
+        </div>
+        <div id="gamePCID">
             <input id="numberToCheckID" type="number" placeholder="Введите предпологаемое число">
-            <button id="checkNumberBtnID" onclick="checkNumber()">Проверить число</button>
+            <button id="checkNumberBtnID" onclick="checkNumber('gamePC')">Проверить число</button>
             <button onclick="newNumber()">Новое число!</button>
         </div>
-        <footer style="position: fixed; bottom: 0px; left:50%; transform: translateX(-50%);">© by MrDesert - alpha v0.0.4.0</footer>
+        <div id="gameManID">
+            <button id="moreID" onclick="newNumber('more')" disabled>Больше</button>
+            <button id="lessID" onclick="newNumber('less')" disabled>Меньше</button>
+            <button id="pcRightID" onclick="pcRightNumber()" disabled>Угадал!</button>
+            <button onclick="checkNumber('gameMan')">Новое число!</button>
+        </div>
+        <footer style="position: fixed; bottom: 0px; left:50%; transform: translateX(-50%);">© by MrDesert - alpha v0.0.5.0</footer>
 
-
+        <script src="console.js" onload="createConsole(true, 'F2')"></script>
         <script src="1_guess_number.js"></script>
     </body>
 </html>
