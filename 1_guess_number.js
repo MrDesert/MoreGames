@@ -2,6 +2,13 @@ let range = 10;
 let number;
 let numberAttempts;
 
+document.getElementById("customRangeID").addEventListener('input', function(e) {
+    if(this.value > 0){
+        document.getElementById("customBtnID").removeAttribute("disabled");
+    } else {
+        document.getElementById("customBtnID").disabled = "disabled"
+    }
+})
 
 function newNumber(){
     number = Math.ceil(Math.random()*range);
@@ -21,7 +28,7 @@ function gameMode(r){
 }
 
 function checkNumber(){
-    const numberToCheck  = document.getElementById("numberToCheckID").value;
+    const numberToCheck  = Math.round(document.getElementById("numberToCheckID").value);
     if(numberToCheck <= range){
         checkNumber.count = (checkNumber.count || 0) + 1;
         if(numberToCheck == number){
@@ -36,6 +43,7 @@ function checkNumber(){
             toChangeText("numberAttemptsID", "Количество попыток: " + (numberAttempts - checkNumber.count));
             if((numberAttempts - checkNumber.count) <= 0){
                 toChangeText("messageID", "К сожелению у вас закончились попытки. Вы не угадали число: " + number);
+                toChangeText("numberAttemptsID", "");
                 document.getElementById("checkNumberBtnID").disabled = "disabled";
             }
         }

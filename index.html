@@ -4,6 +4,7 @@
         <title>MoreGames</title>
     </head>
     <body>
+                <script src="main.js"></script>
         <h1>MoreGames</h1>
         <div>
             <h4>Выберите режим</h4>
@@ -11,18 +12,20 @@
             <button onclick="gameMode(100)">Классика 1-100</button>
             <button onclick="gameMode(1000)">Сложный 1-1000</button>
             <button onclick="gameMode(10000)">Эксперт 1-10000</button>
+            <button id="customBtnID" onclick="gameMode(document.getElementById('customRangeID').value)" disabled>Пользовательский</button>
+            <input type="number" id="customRangeID" placeholder="Введите размер диапазона">
         </div>
         <div id="gameID" hidden>
             <h3 id="taskID"></h3>
             <div id="messageID"></div>
             <p id="numberAttemptsID"></p>
-            <input id="numberToCheckID" type="number">
+            <input id="numberToCheckID" type="number" placeholder="Введите предпологаемое число">
             <button id="checkNumberBtnID" onclick="checkNumber()">Проверить число</button>
             <button onclick="newNumber()">Новое число!</button>
         </div>
-        <footer style="position: fixed; bottom: 0px; left:50%; transform: translateX(-50%);">© by MrDesert - alpha v0.0.3.0</footer>
+        <footer style="position: fixed; bottom: 0px; left:50%; transform: translateX(-50%);">© by MrDesert - alpha v0.0.4.0</footer>
 
-        <script src="main.js"></script>
+
         <script src="1_guess_number.js"></script>
     </body>
 </html>
