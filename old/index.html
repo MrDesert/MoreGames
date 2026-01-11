@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>MoreGames</title>
+    </head>
+    <body>
+                <script src="main.js"></script>
+        <h1>MoreGames</h1>
+        <div>
+            <button id="modePC" onclick="gameMode(this)">Вы отгадываете, компьютер загадывает</button>
+            <button id="modeMan" onclick="gameMode(this)">Вы загадываете, компьютер отгадывает</button>
+        </div>
+        <div>
+            <h4>Выберите режим</h4>
+            <button id="modeA" value="10" onclick="difficulty(this)">Новичок 1-10</button>
+            <button id="modeB" value="100" onclick="difficulty(this)">Классика 1-100</button>
+            <button id="modeC" value="1000" onclick="difficulty(this)">Сложный 1-1000</button>
+            <button id="modeD" value="10000" onclick="difficulty(this)">Эксперт 1-10000</button>
+            <button id="modeE" onclick="difficulty(this)">Пользовательский 1-∞</button>
+            <input type="number" id="customRangeID" placeholder="Введите размер диапазона" hidden>
+        </div>
+        <div id="gameAll">
+            <h3 id="taskID"></h3>
+            <div id="messageID"></div>
+            <p id="numberAttemptsID"></p>
+        </div>
+        <div id="gamePCID">
+            <input id="numberToCheckID" type="number" placeholder="Введите предпологаемое число">
+            <button id="checkNumberBtnID" onclick="checkNumber('gamePC')">Проверить число</button>
+            <button onclick="newGame(true)">Новое число!</button>
+        </div>
+        <div id="gameManID">
+            <button id="moreID" onclick="sign('Больше!')" disabled>Больше</button>
+            <button id="lessID" onclick="sign('Меньше!')" disabled>Меньше</button>
+            <button id="pcRightID" onclick="endGame('win')" disabled>Угадал!</button>
+            <button onclick="newGame(true)">Новое число!</button>
+        </div>
+        <table>
+            <tr><th>Попытка</th><th>Число</th><th>Результат</th><th>Вероятность угадать</th></tr>
+            <tr><td id="cellID8x1"></td><td id="cellID8x2"></td><td id="cellID8x3"></td><td id="cellID8x4"></td></tr>
+            <tr><td id="cellID7x1"></td><td id="cellID7x2"></td><td id="cellID7x3"></td><td id="cellID7x4"></td></tr>
+            <tr><td id="cellID6x1"></td><td id="cellID6x2"></td><td id="cellID6x3"></td><td id="cellID6x4"></td></tr>
+            <tr><td id="cellID5x1"></td><td id="cellID5x2"></td><td id="cellID5x3"></td><td id="cellID5x4"></td></tr>
+            <tr><td id="cellID4x1"></td><td id="cellID4x2"></td><td id="cellID4x3"></td><td id="cellID4x4"></td></tr>
+            <tr><td id="cellID3x1"></td><td id="cellID3x2"></td><td id="cellID3x3"></td><td id="cellID3x4"></td></tr>
+            <tr><td id="cellID2x1"></td><td id="cellID2x2"></td><td id="cellID2x3"></td><td id="cellID2x4"></td></tr>
+            <tr><td id="cellID1x1"></td><td id="cellID1x2"></td><td id="cellID1x3"></td><td id="cellID1x4"></td></tr> 
+        </table>
+        <footer style="position: fixed; bottom: 0px; left:50%; transform: translateX(-50%);">© by MrDesert - alpha v0.0.5.0</footer>
+
+        <script src="console.js" onload="createConsole(true, 'F2')"></script>
+        <script src="https://mrdesert.github.io/DOM.js/DOM.js"></script>
+        <script src="1_guess_number.js"></script>
+    </body>
+</html>
