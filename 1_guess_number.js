@@ -6,10 +6,13 @@ let minNum;
 let maxNum;
 let result;
 let rate;
-const brain = 3;
+let brain;
+const brainNames = ["Слабый", "Средний", "Сильный - Человеческий", "Беспащяный"];
 
 simulateClick("#modeMan");
 simulateClick("#modeB");
+brain = DOM.id("AIRangeID").value;
+toChangeText("AIRangeTextID", "Интелект компьютера: " + brain + " - " + brainNames[brain-1]);
 
 function gameMode(mode){
 
@@ -98,9 +101,15 @@ function newGameMan(){
     gameManBtnsDis(true);
     newNum.count = 0;
     tableClear()
+    DOM.elDisabled("AIRangeID", false)
+    DOM.id("AIRangeID").oninput = function(){
+        brain = this.value;
+        toChangeText("AIRangeTextID", "Интелект компьютера: " + brain + " - " + brainNames[brain-1])
+    };
 }
 
 function newNum(result){
+    DOM.elDisabled("AIRangeID", true);
     if(newNum.count>0){tableAdd(newNum.count, "№"+newNum.count, number, result, rate+"%")};
     newNum.count = (newNum.count || 0) + 1;
     switch(result){
@@ -118,13 +127,12 @@ function newNum(result){
         }
         //Интелект 1 уровня - учитывает только поледнее направление
         else if(brain == 1){
-            if (result == "Больше!"){
-                number = Math.ceil(Math.random()*(range-number))+number;
-            } else if (result == "Меньше!"){
-                number = Math.ceil(Math.random()*number-1);
-            } else{
-                number = Math.ceil(Math.random()*range)
-            }
+            const per20 = Math.round((maxNum-minNum) / 10)
+            const min = (minNum - per20) > 0 ? minNum - per20 : 0;
+            const max = (maxNum + per20) < range ? maxNum + per20 : range;
+            myLog(Math.round(Math.random()*1000))
+            do {number = Math.ceil(Math.random()*(max-min))+min;
+            } while(number == minNum || number == maxNum);
         } 
         //Интелект 3 уровня - более очеловечен за чёт рандома но работает как 4, самый интересный вариант
         else if(brain == 3){
@@ -169,6 +177,7 @@ function endGame(status){
         toChangeText("messageID", "Так не можыт быть вы где-то ошиблись!");
     }
     gameManBtnsDis(true);
+    DOM.elDisabled("AIRangeID", false);
     toChangeText("numberAttemptsID", "");
 }
 

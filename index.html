@@ -30,19 +30,23 @@
             <button onclick="newGamePC()">Новое число!</button>
         </div>
         <div id="gameManID">
+            <input type="range" name="" id="AIRangeID" max="4" min="1" value="3"><div id="AIRangeTextID"></div>
             <button id="moreID" onclick="newNum('Больше!')">Больше</button>
             <button id="lessID" onclick="newNum('Меньше!')">Меньше</button>
             <button id="pcRightID" onclick="endGame('win')">Угадал!</button>
             <button onclick="newGameMan(); newNum()">Новое число!</button>
         </div>
-        <table>
-            <tr><th>Попытка</th><th>Число</th><th>Результат</th><th>Вероятность угадать</th></tr>
-            <tbody id="tableID"></tbody>
-        </table>
-        <footer style="position: fixed; bottom: 0px; left:50%; transform: translateX(-50%);">© by MrDesert - alpha v0.0.7.0</footer>
+        <details>
+            <summary>История ходов</summary>
+            <table>
+                <tr><th>Попытка</th><th>Число</th><th>Результат</th><th>Вероятность угадать</th></tr>
+                <tbody id="tableID"></tbody>
+            </table>
+        </details>
+        <footer style="position: fixed; bottom: 0px; left:50%; transform: translateX(-50%);">© by MrDesert - alpha v0.0.7.5</footer>
 
         <script src="console.js" onload="createConsole(true, 'F2')"></script>
         <script src="https://mrdesert.github.io/DOM.js/DOM.js"></script>
-        <script src="1_guess_number2.js"></script>
+        <script src="1_guess_number.js"></script>
     </body>
 </html>
