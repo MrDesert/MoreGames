@@ -9,10 +9,28 @@ let rate;
 let brain;
 const brainNames = ["Слабый", "Средний", "Сильный - Человеческий", "Беспащяный"];
 
-simulateClick("#modeMan");
-simulateClick("#modeB");
 brain = DOM.id("AIRangeID").value;
 toChangeText("AIRangeTextID", "Интелект компьютера: " + brain + " - " + brainNames[brain-1]);
+
+function gamesBack(){
+    DOM.elHide("moreAndLessID", false);
+    DOM.elHide("escapeBtnID", true);
+}
+function games(who, abc){
+
+    who == "PC"? simulateClick("#modePC") : simulateClick("#modeMan");
+
+    switch(abc){
+        case "A": simulateClick("#modeA"); break;
+        case "B": simulateClick("#modeB"); break;
+        case "C": simulateClick("#modeC"); break;
+        case "D": simulateClick("#modeD"); break;
+        case "E": simulateClick("#modeE"); break;
+    }
+    DOM.elHide("moreAndLessID", true);
+    DOM.elHide("switchMode", true);
+    DOM.elHide("escapeBtnID", false);
+}
 
 function gameMode(mode){
 
