@@ -7,7 +7,10 @@ let maxNum;
 let result;
 let rate;
 let brain;
+let history;
 const brainNames = ["Слабый", "Средний", "Сильный - Человеческий", "Беспащяный"];
+
+simulateClick("#gameCustom");
 
 brain = DOM.id("AIRangeID").value;
 toChangeText("AIRangeTextID", "Интелект компьютера: " + brain + " - " + brainNames[brain-1]);
@@ -15,21 +18,32 @@ toChangeText("AIRangeTextID", "Интелект компьютера: " + brain 
 function gamesBack(){
     DOM.elHide("moreAndLessID", false);
     DOM.elHide("escapeBtnID", true);
+    DOM.elHide("theGameID", true);
+    DOM.elHide("switchMode", true);
 }
 function games(who, abc){
+    DOM.elHide("moreAndLessID", true);
+    DOM.elHide("switchMode", true);
+    DOM.elHide("escapeBtnID", false);
+    DOM.elHide("theGameID", false);
+    
+    if(who == "All"){
+        who = "PC";
+        abc = "B";
+        DOM.elHide("switchMode", false);
+    }
 
     who == "PC"? simulateClick("#modePC") : simulateClick("#modeMan");
 
     switch(abc){
-        case "A": simulateClick("#modeA"); break;
-        case "B": simulateClick("#modeB"); break;
-        case "C": simulateClick("#modeC"); break;
-        case "D": simulateClick("#modeD"); break;
-        case "E": simulateClick("#modeE"); break;
+        case "A": simulateClick("#modeA"); history = false; break;
+        case "B": simulateClick("#modeB"); history = true; break;
+        case "C": simulateClick("#modeC"); history = true; break;
+        case "D": simulateClick("#modeD"); history = true; break;
+        case "E": simulateClick("#modeE"); history = true; break;
     }
-    DOM.elHide("moreAndLessID", true);
-    DOM.elHide("switchMode", true);
-    DOM.elHide("escapeBtnID", false);
+    DOM.elHide("gameSettingsID", history ? false : true);
+    brain = 3;
 }
 
 function gameMode(mode){
@@ -57,7 +71,9 @@ function difficulty(mode){
     DOM.elDisabled(mode.id, true);
     
     if(mode.id == "modeE"){
+        myLog(mode.id)
         DOM.elHide("customRangeID", false);
+        range = 2;
     }else {
         range = Number(mode.value);
     }
@@ -76,8 +92,11 @@ function newGamePC(){
     numberAttempts = Math.ceil(Math.log2(range));
     toChangeText("numberAttemptsID", "Количество попыток: " + numberAttempts);
     DOM.elDisabled("checkNumberBtnID", true);
+    DOM.elDisabled("numberToCheckID", false);
     checkNumberPC.count = 0;
     tableClear();
+    maxNum ="";
+    minNum ="";
     
     DOM.id("numberToCheckID").addEventListener('input', function(e) {
         DOM.elDisabled("checkNumberBtnID", this.value > 0 ? false : true);
@@ -92,20 +111,34 @@ function checkNumberPC(){
     if(numberCheck <= range){
         checkNumberPC.count = (checkNumberPC.count || 0) + 1;
         toChangeText("numberAttemptsID", "");  
-        numberAttempts--;
-        if(numberAttempts > 0){
+ 
             if(numberCheck === number){
                 result = "Угадал!";
-                toChangeText("messageID", "Поздравляю вы угадали за: " + checkNumberPC.count + " попытки! загаданное число: " + number);
-            } else {            
-                result = numberCheck < number ? "Больше!" : "Меньше!";
-                toChangeText("messageID", result);
-                toChangeText("numberAttemptsID", "Количество попыток: " + numberAttempts);
+                const attempts = checkNumberPC.count === 1 ? "попытку" : checkNumberPC.count < 5 && checkNumberPC.count > 1 ? "попытки" : "попыток";
+                toChangeText("messageID", "Поздравляю вы угадали за: " + checkNumberPC.count + " " + attempts + "! загаданное число: " + number);
+                DOM.elDisabled("numberToCheckID", true);
+            } else { 
+                if(--numberAttempts > 0){           
+                    result = numberCheck < number ? "Больше!" : "Меньше!";
+                    toChangeText("messageID", result);
+                    toChangeText("numberAttemptsID", "Количество попыток: " + numberAttempts);
+                }else{
+                    toChangeText("messageID", "К сожелению у вас закончились попытки. Вы не угадали число: " + number);       
+                    DOM.elDisabled("numberToCheckID", true);
+                }
             }
-        } else{
-            toChangeText("messageID", "К сожелению у вас закончились попытки. Вы не угадали число: " + number);       
+            maxNum = maxNum || range+1;
+            minNum = minNum || 0;
+            rate = Math.round(1/(maxNum-minNum-1)*10000)/100;
+            myLog(minNum+"min")
+            myLog(maxNum+"max")
+            myLog(rate+"rate")
+            rate = numberCheck < maxNum && numberCheck > minNum ? rate : 0;
+            tableAdd(checkNumberPC.count, checkNumberPC.count, numberCheck, result, "~"+rate+"%");
+        switch(result){
+            case "Больше!": minNum = numberCheck > minNum ? numberCheck : minNum; break;
+            case "Меньше!": maxNum = numberCheck < maxNum ? numberCheck : maxNum; break;
         }
-        tableAdd(checkNumberPC.count, checkNumberPC.count, numberCheck, result, "1%");
     } else{
         toChangeText("messageID", "Число должно быть в диапозоне от 1 до " + range + "!");
     }
@@ -128,7 +161,7 @@ function newGameMan(){
 
 function newNum(result){
     DOM.elDisabled("AIRangeID", true);
-    if(newNum.count>0){tableAdd(newNum.count, "№"+newNum.count, number, result, rate+"%")};
+    if(newNum.count>0){tableAdd(newNum.count, "№"+newNum.count, number, result, "~"+rate+"%")};
     newNum.count = (newNum.count || 0) + 1;
     switch(result){
         case "Больше!": minNum = number > minNum ? number : minNum; break;

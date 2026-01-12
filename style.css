@@ -53,7 +53,7 @@ body::before {
   left: 0px;
   margin: 10px;
 }
-#gamesPCID, #gamesManID{
+#gamesPCID, #gamesManID, #gameCustomID{
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -86,6 +86,9 @@ body::before {
 .game_div:nth-child(3) { background: linear-gradient(145deg, rgba(29, 209, 161, 0.15), rgba(52, 152, 219, 0.15)); }
 .game_div:nth-child(4) { background: linear-gradient(145deg, rgba(255, 159, 28, 0.15), rgba(255, 119, 51, 0.15)); }
 .game_div:nth-child(5) { background: linear-gradient(145deg, rgba(155, 81, 224, 0.15), rgba(46, 204, 113, 0.15)); }
+#gameCustom{
+  width: 600px;
+}
 .circleBtn{
   height: 50px;
   width: 50px;

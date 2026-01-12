@@ -15,21 +15,27 @@
                 <div id="gamePC_B_ID" onclick="games('PC', 'B')" class="game_div">Классика <br> 1-100</div>
                 <div id="gamePC_C_ID" onclick="games('PC', 'C')" class="game_div">Профи <br> 1-1000</div>
                 <div id="gamePC_D_ID" onclick="games('PC', 'D')" class="game_div">Эксперт <br> 1-10000</div>
-                <div id="gamePC_E_ID" onclick="games('PC', 'E')" class="game_div">Пользовательский <br> 1-∞</div>
+                <div id="gamePC_E_ID" onclick="games('PC', 'E')" class="game_div">Свой <br> 1-∞</div>
             </div>
+            <hr>
             <div class="headerGamesID">Число загадывает человек</div>
             <div id="gamesManID">    
                 <div id="gameMan_A_ID" onclick="games('Man', 'A')" class="game_div">Новичок <br> 1-10</div>
                 <div id="gameMan_B_ID" onclick="games('Man', 'B')" class="game_div">Классика <br> 1-100</div>
                 <div id="gameMan_C_ID" onclick="games('Man', 'C')" class="game_div">Профи <br> 1-1000</div>
                 <div id="gameMan_D_ID" onclick="games('Man', 'D')" class="game_div">Эксперт <br> 1-10000</div>
-                <div id="gameMan_E_ID" onclick="games('Man', 'E')" class="game_div">Пользовательский <br> 1-∞</div>
+                <div id="gameMan_E_ID" onclick="games('Man', 'E')" class="game_div">Свой<br> 1-∞</div>
+            </div>
+            <hr>
+            <div id="gameCustomID">
+                <div id="gameCustom" onclick="games('All')" class="game_div">Креативный</div>
             </div>
         </div>
         <div id="switchMode" hidden>
             <div>
-                <button id="modePC" value="gamePCID" onclick="gameMode(this)">Вы отгадываете, компьютер загадывает</button>
-                <button id="modeMan" value="gameManID" onclick="gameMode(this)">Вы загадываете, компьютер отгадывает</button>
+                <h4>Выберите кто загадвает число</h4>
+                <button id="modePC" value="gamePCID" onclick="gameMode(this)">Компьютер </button>
+                <button id="modeMan" value="gameManID" onclick="gameMode(this)">Человек</button>
             </div>
             <div>
                 <h4>Выберите режим</h4>
@@ -38,36 +44,44 @@
                 <button id="modeC" value="1000" onclick="difficulty(this)">Профи 1-1000</button>
                 <button id="modeD" value="10000" onclick="difficulty(this)">Эксперт 1-10000</button>
                 <button id="modeE" onclick="difficulty(this)">Пользовательский 1-∞</button>
-                <input type="number" id="customRangeID" placeholder="Введите размер диапазона" hidden>
+            </div>
+            <div>
+                <h4>Выберите тип подсказок</h4>
+                <button id="hintDirect">Направление</button>
+                <button id="hintRange">Диапазон</button>
+                <button id="hintNearness">Близость</button>
             </div>
         </div>
-        <div id="gameAll" hidden>
-            <h3 id="taskID"></h3>
-            <div id="messageID"></div>
-            <p id="numberAttemptsID"></p>
+        <div id="theGameID" hidden>
+            <div id="gameAll" >
+                <input type="number" id="customRangeID" placeholder="Введите размер диапазона" hidden>
+                <h3 id="taskID"></h3>
+                <div id="messageID"></div>
+                <p id="numberAttemptsID"></p>
+            </div>
+            <div id="gamePCID">
+                <input id="numberToCheckID" type="number" placeholder="Введите предпологаемое число">
+                <button id="checkNumberBtnID" onclick="checkNumberPC()">Проверить число</button>
+                <button onclick="newGamePC()">Новое число!</button>
+            </div>
+            <div id="gameManID">
+                <input type="range" name="" id="AIRangeID" max="4" min="1" value="3"><div id="AIRangeTextID"></div>
+                <button id="moreID" onclick="newNum('Больше!')">Больше</button>
+                <button id="lessID" onclick="newNum('Меньше!')">Меньше</button>
+                <button id="pcRightID" onclick="endGame('win')">Угадал!</button>
+                <button onclick="newGameMan(); newNum()">Новое число!</button>
+            </div>
+            <div id="gameSettingsID">
+                <details>
+                    <summary>История ходов</summary>
+                    <table>
+                        <tr><th>Попытка</th><th>Число</th><th>Результат</th><th>Вероятность угадать</th></tr>
+                        <tbody id="tableID"></tbody>
+                    </table>
+                </details>
+            </div>
         </div>
-        <div id="gamePCID" hidden>
-            <input id="numberToCheckID" type="number" placeholder="Введите предпологаемое число">
-            <button id="checkNumberBtnID" onclick="checkNumberPC()">Проверить число</button>
-            <button onclick="newGamePC()">Новое число!</button>
-        </div>
-        <div id="gameManID" hidden>
-            <input type="range" name="" id="AIRangeID" max="4" min="1" value="3"><div id="AIRangeTextID"></div>
-            <button id="moreID" onclick="newNum('Больше!')">Больше</button>
-            <button id="lessID" onclick="newNum('Меньше!')">Меньше</button>
-            <button id="pcRightID" onclick="endGame('win')">Угадал!</button>
-            <button onclick="newGameMan(); newNum()">Новое число!</button>
-        </div>
-        <div id="gameSettingsID" hidden>
-            <details>
-                <summary>История ходов</summary>
-                <table>
-                    <tr><th>Попытка</th><th>Число</th><th>Результат</th><th>Вероятность угадать</th></tr>
-                    <tbody id="tableID"></tbody>
-                </table>
-            </details>
-        </div>
-        <footer style="position: fixed; bottom: 0px; left:50%; transform: translateX(-50%);">© by MrDesert - alpha v0.0.8.0</footer>
+        <footer style="position: fixed; bottom: 0px; left:50%; transform: translateX(-50%);">© by MrDesert - alpha v0.0.8.5</footer>
 
         <script src="console.js" onload="createConsole(true, 'F2')"></script>
         <script src="https://mrdesert.github.io/DOM.js/DOM.js"></script>
