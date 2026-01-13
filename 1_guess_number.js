@@ -16,72 +16,73 @@ brain = DOM.id("AIRangeID").value;
 toChangeText("AIRangeTextID", "Интелект компьютера: " + brain + " - " + brainNames[brain-1]);
 
 function gamesBack(){
-    DOM.elHide("moreAndLessID", false);
     DOM.elHide("escapeBtnID", true);
     DOM.elHide("theGameID", true);
+    DOM.elHide("moreAndLessID", false);
     DOM.elHide("switchMode", true);
 }
-function games(who, abc){
-    DOM.elHide("moreAndLessID", true);
-    DOM.elHide("switchMode", true);
+function games(who, abc, hint){
     DOM.elHide("escapeBtnID", false);
     DOM.elHide("theGameID", false);
+    DOM.elHide("moreAndLessID", true);
+    DOM.elHide("switchMode", true);
     
     if(who == "All"){
         who = "PC";
         abc = "B";
+        hint = "Direct";
         DOM.elHide("switchMode", false);
     }
+    
+    gameMode(who);
 
-    who == "PC"? simulateClick("#modePC") : simulateClick("#modeMan");
+    history = abc == "A" ? false : true;
+    simulateClick("#"+abc);
 
-    switch(abc){
-        case "A": simulateClick("#modeA"); history = false; break;
-        case "B": simulateClick("#modeB"); history = true; break;
-        case "C": simulateClick("#modeC"); history = true; break;
-        case "D": simulateClick("#modeD"); history = true; break;
-        case "E": simulateClick("#modeE"); history = true; break;
-    }
-    DOM.elHide("gameSettingsID", history ? false : true);
+
+    DOM.elHide("gameSettingsID", !history);
     brain = 3;
+}
+
+function switchHints(hint){
+
 }
 
 function gameMode(mode){
 
-    DOM.elDisabled(mode.id, true);
-    DOM.elHide(mode.value, false);
-    game = mode.id;
-    if(mode.id == "modePC"){
-        DOM.elDisabled("modeMan", false);
+    DOM.elDisabled(mode, true);
+    DOM.elHide("game"+mode+"ID", false);
+    game = mode;
+    if(mode == "PC"){
+        DOM.elDisabled("Man", false);
         DOM.elHide("gameManID", true);
         newGamePC();
     } else{
-        DOM.elDisabled("modePC", false);
+        DOM.elDisabled("PC", false);
         DOM.elHide("gamePCID", true);
         newGameMan();
     }
 }
 
 function difficulty(mode){
-    const modes = ["modeA", "modeB", "modeC", "modeD", "modeE"];
+    const modes = ["A", "B", "C", "D", "E"];
     for(let i = 0; i < modes.length; i++){
         DOM.elDisabled(modes[i], false)
         DOM.elHide("customRangeID", true);
     }
     DOM.elDisabled(mode.id, true);
     
-    if(mode.id == "modeE"){
-        myLog(mode.id)
+    if(mode.id == "E"){
         DOM.elHide("customRangeID", false);
         range = 2;
     }else {
         range = Number(mode.value);
     }
-    game == "modePC" ? newGamePC() : newGameMan();
+    game == "PC" ? newGamePC() : newGameMan();
 
     document.getElementById("customRangeID").addEventListener('input', function(e) {
         range = this.value > 1 ? this.value : 2;
-        game = "modePC" ? newGamePC() : newGameMan();
+        game = "PC" ? newGamePC() : newGameMan();
     })
 }
 

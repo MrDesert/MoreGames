@@ -34,22 +34,22 @@
         <div id="switchMode" hidden>
             <div>
                 <h4>Выберите кто загадвает число</h4>
-                <button id="modePC" value="gamePCID" onclick="gameMode(this)">Компьютер </button>
-                <button id="modeMan" value="gameManID" onclick="gameMode(this)">Человек</button>
+                <button id="PC" value="gamePCID" onclick="gameMode(this.id)">Компьютер </button>
+                <button id="Man" value="gameManID" onclick="gameMode(this.id)">Человек</button>
             </div>
             <div>
                 <h4>Выберите режим</h4>
-                <button id="modeA" value="10" onclick="difficulty(this)">Новичок 1-10</button>
-                <button id="modeB" value="100" onclick="difficulty(this)">Классика 1-100</button>
-                <button id="modeC" value="1000" onclick="difficulty(this)">Профи 1-1000</button>
-                <button id="modeD" value="10000" onclick="difficulty(this)">Эксперт 1-10000</button>
-                <button id="modeE" onclick="difficulty(this)">Пользовательский 1-∞</button>
+                <button id="A" value="10" onclick="difficulty(this)">Новичок 1-10</button>
+                <button id="B" value="100" onclick="difficulty(this)">Классика 1-100</button>
+                <button id="C" value="1000" onclick="difficulty(this)">Профи 1-1000</button>
+                <button id="D" value="10000" onclick="difficulty(this)">Эксперт 1-10000</button>
+                <button id="E" onclick="difficulty(this)">Свой 1-∞</button>
             </div>
             <div>
                 <h4>Выберите тип подсказок</h4>
-                <button id="hintDirect">Направление</button>
-                <button id="hintRange">Диапазон</button>
-                <button id="hintNearness">Близость</button>
+                <button id="hintDirect" onclick="switchHints(this)">Направление</button>
+                <button id="hintRange" onclick="switchHints(this)">Диапазон</button>
+                <button id="hintNearness" onclick="switchHints(this)">Близость</button>
             </div>
         </div>
         <div id="theGameID" hidden>
@@ -81,7 +81,7 @@
                 </details>
             </div>
         </div>
-        <footer style="position: fixed; bottom: 0px; left:50%; transform: translateX(-50%);">© by MrDesert - alpha v0.0.8.5</footer>
+        <footer style="position: fixed; bottom: 0px; left:50%; transform: translateX(-50%);">© by MrDesert - alpha v0.0.8.7</footer>
 
         <script src="console.js" onload="createConsole(true, 'F2')"></script>
         <script src="https://mrdesert.github.io/DOM.js/DOM.js"></script>
