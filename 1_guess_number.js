@@ -1,7 +1,17 @@
-let range;
 let number;
 let numberAttempts;
-let game;
+const gameRoles = {
+    riddler: "NOT", //Тот кто загадывает число
+    guesser: "NOT" //Тот кто отгаывает число
+}
+const difficulty = {
+    beginner: {id: "beginner", range: 10},
+    classic: {id: "classic", range: 100},
+    pro: {id: "pro", range: 1000},
+    expert: {id: "expert", range: 10000},
+    custom: {id: "custom", range: 2}
+}
+const curDifficuty = {id: "NOT", range: "NOT"};
 let minNum;
 let maxNum;
 let result;
@@ -29,16 +39,16 @@ function games(who, abc, hint){
     
     if(who == "All"){
         who = "PC";
-        abc = "B";
+        abc = "classic";
         hint = "Direct";
         DOM.elHide("switchMode", false);
     }
     
-    gameMode(who);
+    setRoles(who);
 
-    history = abc == "A" ? false : true;
-    simulateClick("#"+abc);
-
+    history = abc == "beginner" ? false : true;
+    setDifficulty(abc)
+    switchHints(hint)
 
     DOM.elHide("gameSettingsID", !history);
     brain = 3;
@@ -48,49 +58,42 @@ function switchHints(hint){
 
 }
 
-function gameMode(mode){
+function hideElements(){
 
-    DOM.elDisabled(mode, true);
-    DOM.elHide("game"+mode+"ID", false);
-    game = mode;
-    if(mode == "PC"){
-        DOM.elDisabled("Man", false);
-        DOM.elHide("gameManID", true);
-        newGamePC();
-    } else{
-        DOM.elDisabled("PC", false);
-        DOM.elHide("gamePCID", true);
-        newGameMan();
-    }
 }
 
-function difficulty(mode){
-    const modes = ["A", "B", "C", "D", "E"];
-    for(let i = 0; i < modes.length; i++){
-        DOM.elDisabled(modes[i], false)
-        DOM.elHide("customRangeID", true);
-    }
-    DOM.elDisabled(mode.id, true);
-    
-    if(mode.id == "E"){
-        DOM.elHide("customRangeID", false);
-        range = 2;
-    }else {
-        range = Number(mode.value);
-    }
-    game == "PC" ? newGamePC() : newGameMan();
+function setRoles(entity){
+    gameRoles.riddler = entity;
+    gameRoles.guesser = entity == "PC" ? "Man" : "PC";
+    DOM.elDisabled(gameRoles.riddler, true);
+    DOM.elDisabled(gameRoles.guesser, false);
+    DOM.elHide("game"+gameRoles.riddler+"ID", false);
+    DOM.elHide("game"+gameRoles.guesser+"ID", true);
+    startNewGame();
+}
 
-    document.getElementById("customRangeID").addEventListener('input', function(e) {
-        range = this.value > 1 ? this.value : 2;
-        game = "PC" ? newGamePC() : newGameMan();
+function setDifficulty(select){
+    curDifficuty.id = select;
+    curDifficuty.range = difficulty[select].range;
+    for(const key in difficulty){DOM.elDisabled(difficulty[key].id, false)}
+    DOM.elDisabled(curDifficuty.id, true);
+    DOM.elHide("customRangeID", curDifficuty.id == "custom" ? false : true);
+    DOM.id("customRangeID").addEventListener('input', function(e) {
+        curDifficuty.range = this.value > 1 ? this.value : difficulty["custom"].range;
+        startNewGame();
     })
+    startNewGame();
+}
+
+function startNewGame(){
+    gameRoles.riddler == "PC" ? newGamePC() : newGameMan();
 }
 
 function newGamePC(){
-    number = Math.ceil(Math.random()*range);
-    toChangeText("taskID", "Компьютер загадал число от 1 до " + range + ". Угадай его!")
+    number = Math.ceil(Math.random()*curDifficuty.range);
+    toChangeText("taskID", "Компьютер загадал число от 1 до " + curDifficuty.range + ". Угадай его!")
     toChangeText("messageID", "");
-    numberAttempts = Math.ceil(Math.log2(range));
+    numberAttempts = Math.ceil(Math.log2(curDifficuty.range));
     toChangeText("numberAttemptsID", "Количество попыток: " + numberAttempts);
     DOM.elDisabled("checkNumberBtnID", true);
     DOM.elDisabled("numberToCheckID", false);
@@ -109,7 +112,7 @@ function checkNumberPC(){
     DOM.id("numberToCheckID").value = '';
     DOM.elDisabled("checkNumberBtnID", true)
 
-    if(numberCheck <= range){
+    if(numberCheck <= curDifficuty.range){
         checkNumberPC.count = (checkNumberPC.count || 0) + 1;
         toChangeText("numberAttemptsID", "");  
  
@@ -128,7 +131,7 @@ function checkNumberPC(){
                     DOM.elDisabled("numberToCheckID", true);
                 }
             }
-            maxNum = maxNum || range+1;
+            maxNum = maxNum || curDifficuty.range+1;
             minNum = minNum || 0;
             rate = Math.round(1/(maxNum-minNum-1)*10000)/100;
             myLog(minNum+"min")
@@ -141,14 +144,14 @@ function checkNumberPC(){
             case "Меньше!": maxNum = numberCheck < maxNum ? numberCheck : maxNum; break;
         }
     } else{
-        toChangeText("messageID", "Число должно быть в диапозоне от 1 до " + range + "!");
+        toChangeText("messageID", "Число должно быть в диапозоне от 1 до " + curDifficuty.range + "!");
     }
 }
 
 function newGameMan(){
-    toChangeText("taskID", "Вам необходимо загадать число от 1 до " + range + ". Компьютер будет угадывать!");
+    toChangeText("taskID", "Вам необходимо загадать число от 1 до " + curDifficuty.range + ". Компьютер будет угадывать!");
     toChangeText("messageID", "");
-    numberAttempts = Math.ceil(Math.log2(range));
+    numberAttempts = Math.ceil(Math.log2(curDifficuty.range));
     toChangeText("numberAttemptsID", "Количество попыток: " + numberAttempts);
     gameManBtnsDis(true);
     newNum.count = 0;
@@ -167,7 +170,7 @@ function newNum(result){
     switch(result){
         case "Больше!": minNum = number > minNum ? number : minNum; break;
         case "Меньше!": maxNum = number < maxNum ? number : maxNum; break;
-        default: minNum = 0; maxNum = range+1;
+        default: minNum = 0; maxNum = curDifficuty.range+1;
         gameManBtnsDis(false);
     }
     rate = Math.round(1/(maxNum-minNum-1)*100);
@@ -181,7 +184,7 @@ function newNum(result){
         else if(brain == 1){
             const per20 = Math.round((maxNum-minNum) / 10)
             const min = (minNum - per20) > 0 ? minNum - per20 : 0;
-            const max = (maxNum + per20) < range ? maxNum + per20 : range;
+            const max = (maxNum + per20) < curDifficuty.range ? maxNum + per20 : curDifficuty.range;
             myLog(Math.round(Math.random()*1000))
             do {number = Math.ceil(Math.random()*(max-min))+min;
             } while(number == minNum || number == maxNum);

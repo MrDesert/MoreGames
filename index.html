@@ -11,20 +11,20 @@
         <div id="moreAndLessID">
             <div class="headerGamesID">Число загадывает компьютер</div>
             <div id="gamesPCID">
-                <div id="gamePC_A_ID" onclick="games('PC', 'A')" class="game_div">Новичок <br> 1-10</div>
-                <div id="gamePC_B_ID" onclick="games('PC', 'B')" class="game_div">Классика <br> 1-100</div>
-                <div id="gamePC_C_ID" onclick="games('PC', 'C')" class="game_div">Профи <br> 1-1000</div>
-                <div id="gamePC_D_ID" onclick="games('PC', 'D')" class="game_div">Эксперт <br> 1-10000</div>
-                <div id="gamePC_E_ID" onclick="games('PC', 'E')" class="game_div">Свой <br> 1-∞</div>
+                <div id="gamePC_A_ID" onclick="games('PC', 'beginner')" class="game_div">Новичок <br> 1-10</div>
+                <div id="gamePC_B_ID" onclick="games('PC', 'classic')" class="game_div">Классика <br> 1-100</div>
+                <div id="gamePC_C_ID" onclick="games('PC', 'pro')" class="game_div">Профи <br> 1-1000</div>
+                <div id="gamePC_D_ID" onclick="games('PC', 'expert')" class="game_div">Эксперт <br> 1-10000</div>
+                <div id="gamePC_E_ID" onclick="games('PC', 'custom')" class="game_div">Свой <br> 1-∞</div>
             </div>
             <hr>
             <div class="headerGamesID">Число загадывает человек</div>
             <div id="gamesManID">    
-                <div id="gameMan_A_ID" onclick="games('Man', 'A')" class="game_div">Новичок <br> 1-10</div>
-                <div id="gameMan_B_ID" onclick="games('Man', 'B')" class="game_div">Классика <br> 1-100</div>
-                <div id="gameMan_C_ID" onclick="games('Man', 'C')" class="game_div">Профи <br> 1-1000</div>
-                <div id="gameMan_D_ID" onclick="games('Man', 'D')" class="game_div">Эксперт <br> 1-10000</div>
-                <div id="gameMan_E_ID" onclick="games('Man', 'E')" class="game_div">Свой<br> 1-∞</div>
+                <div id="gameMan_A_ID" onclick="games('Man', 'beginner')" class="game_div">Новичок <br> 1-10</div>
+                <div id="gameMan_B_ID" onclick="games('Man', 'classic')" class="game_div">Классика <br> 1-100</div>
+                <div id="gameMan_C_ID" onclick="games('Man', 'pro')" class="game_div">Профи <br> 1-1000</div>
+                <div id="gameMan_D_ID" onclick="games('Man', 'expert')" class="game_div">Эксперт <br> 1-10000</div>
+                <div id="gameMan_E_ID" onclick="games('Man', 'custom')" class="game_div">Свой<br> 1-∞</div>
             </div>
             <hr>
             <div id="gameCustomID">
@@ -34,16 +34,16 @@
         <div id="switchMode" hidden>
             <div>
                 <h4>Выберите кто загадвает число</h4>
-                <button id="PC" value="gamePCID" onclick="gameMode(this.id)">Компьютер </button>
-                <button id="Man" value="gameManID" onclick="gameMode(this.id)">Человек</button>
+                <button id="PC" onclick="setRoles(this.id)">Компьютер </button>
+                <button id="Man" onclick="setRoles(this.id)">Человек</button>
             </div>
             <div>
                 <h4>Выберите режим</h4>
-                <button id="A" value="10" onclick="difficulty(this)">Новичок 1-10</button>
-                <button id="B" value="100" onclick="difficulty(this)">Классика 1-100</button>
-                <button id="C" value="1000" onclick="difficulty(this)">Профи 1-1000</button>
-                <button id="D" value="10000" onclick="difficulty(this)">Эксперт 1-10000</button>
-                <button id="E" onclick="difficulty(this)">Свой 1-∞</button>
+                <button id="beginner" onclick="setDifficulty(this.id)">Новичок 1-10</button>
+                <button id="classic" onclick="setDifficulty(this.id)">Классика 1-100</button>
+                <button id="pro" onclick="setDifficulty(this.id)">Профи 1-1000</button>
+                <button id="expert" onclick="setDifficulty(this.id)">Эксперт 1-10000</button>
+                <button id="custom" onclick="setDifficulty(this.id)">Свой 1-∞</button>
             </div>
             <div>
                 <h4>Выберите тип подсказок</h4>
@@ -81,7 +81,7 @@
                 </details>
             </div>
         </div>
-        <footer style="position: fixed; bottom: 0px; left:50%; transform: translateX(-50%);">© by MrDesert - alpha v0.0.8.7</footer>
+        <footer style="position: fixed; bottom: 0px; left:50%; transform: translateX(-50%);">© by MrDesert - alpha v0.0.8.9</footer>
 
         <script src="console.js" onload="createConsole(true, 'F2')"></script>
         <script src="https://mrdesert.github.io/DOM.js/DOM.js"></script>
