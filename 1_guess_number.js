@@ -22,26 +22,26 @@ const brainNames = ["Слабый", "Средний", "Сильный - Чело
 
 simulateClick("#gameCustom");
 
-brain = DOM.id("AIRangeID").value;
+brain = DOM.Id("AIRangeID").value;
 toChangeText("AIRangeTextID", "Интелект компьютера: " + brain + " - " + brainNames[brain-1]);
 
 function gamesBack(){
-    DOM.elHide("escapeBtnID", true);
-    DOM.elHide("theGameID", true);
-    DOM.elHide("moreAndLessID", false);
-    DOM.elHide("switchMode", true);
+    DOM.Hide("escapeBtnID", true);
+    DOM.Hide("theGameID", true);
+    DOM.Hide("moreAndLessID", false);
+    DOM.Hide("switchMode", true);
 }
 function games(who, abc, hint){
-    DOM.elHide("escapeBtnID", false);
-    DOM.elHide("theGameID", false);
-    DOM.elHide("moreAndLessID", true);
-    DOM.elHide("switchMode", true);
+    DOM.Hide("escapeBtnID", false);
+    DOM.Hide("theGameID", false);
+    DOM.Hide("moreAndLessID", true);
+    DOM.Hide("switchMode", true);
     
     if(who == "All"){
         who = "PC";
         abc = "classic";
         hint = "Direct";
-        DOM.elHide("switchMode", false);
+        DOM.Hide("switchMode", false);
     }
     
     setRoles(who);
@@ -50,7 +50,7 @@ function games(who, abc, hint){
     setDifficulty(abc)
     switchHints(hint)
 
-    DOM.elHide("gameSettingsID", !history);
+    DOM.Hide("gameSettingsID", !history);
     brain = 3;
 }
 
@@ -65,20 +65,20 @@ function hideElements(){
 function setRoles(entity){
     gameRoles.riddler = entity;
     gameRoles.guesser = entity == "PC" ? "Man" : "PC";
-    DOM.elDisabled(gameRoles.riddler, true);
-    DOM.elDisabled(gameRoles.guesser, false);
-    DOM.elHide("game"+gameRoles.riddler+"ID", false);
-    DOM.elHide("game"+gameRoles.guesser+"ID", true);
+    DOM.Disable(gameRoles.riddler, true);
+    DOM.Disable(gameRoles.guesser, false);
+    DOM.Hide("game"+gameRoles.riddler+"ID", false);
+    DOM.Hide("game"+gameRoles.guesser+"ID", true);
     startNewGame();
 }
 
 function setDifficulty(select){
     curDifficuty.id = select;
     curDifficuty.range = difficulty[select].range;
-    for(const key in difficulty){DOM.elDisabled(difficulty[key].id, false)}
-    DOM.elDisabled(curDifficuty.id, true);
-    DOM.elHide("customRangeID", curDifficuty.id == "custom" ? false : true);
-    DOM.id("customRangeID").addEventListener('input', function(e) {
+    for(const key in difficulty){DOM.Disable(difficulty[key].id, false)}
+    DOM.Disable(curDifficuty.id, true);
+    DOM.Hide("customRangeID", curDifficuty.id == "custom" ? false : true);
+    DOM.Id("customRangeID").addEventListener('input', function(e) {
         curDifficuty.range = this.value > 1 ? this.value : difficulty["custom"].range;
         startNewGame();
     })
@@ -95,22 +95,22 @@ function newGamePC(){
     toChangeText("messageID", "");
     numberAttempts = Math.ceil(Math.log2(curDifficuty.range));
     toChangeText("numberAttemptsID", "Количество попыток: " + numberAttempts);
-    DOM.elDisabled("checkNumberBtnID", true);
-    DOM.elDisabled("numberToCheckID", false);
+    DOM.Disable("checkNumberBtnID", true);
+    DOM.Disable("numberToCheckID", false);
     checkNumberPC.count = 0;
     tableClear();
     maxNum ="";
     minNum ="";
     
-    DOM.id("numberToCheckID").addEventListener('input', function(e) {
-        DOM.elDisabled("checkNumberBtnID", this.value > 0 ? false : true);
+    DOM.Id("numberToCheckID").addEventListener('input', function(e) {
+        DOM.Disable("checkNumberBtnID", this.value > 0 ? false : true);
     })
 }
 
 function checkNumberPC(){
-    const numberCheck = Math.round(DOM.id("numberToCheckID").value);
-    DOM.id("numberToCheckID").value = '';
-    DOM.elDisabled("checkNumberBtnID", true)
+    const numberCheck = Math.round(DOM.Id("numberToCheckID").value);
+    DOM.Id("numberToCheckID").value = '';
+    DOM.Disable("checkNumberBtnID", true)
 
     if(numberCheck <= curDifficuty.range){
         checkNumberPC.count = (checkNumberPC.count || 0) + 1;
@@ -120,7 +120,7 @@ function checkNumberPC(){
                 result = "Угадал!";
                 const attempts = checkNumberPC.count === 1 ? "попытку" : checkNumberPC.count < 5 && checkNumberPC.count > 1 ? "попытки" : "попыток";
                 toChangeText("messageID", "Поздравляю вы угадали за: " + checkNumberPC.count + " " + attempts + "! загаданное число: " + number);
-                DOM.elDisabled("numberToCheckID", true);
+                DOM.Disable("numberToCheckID", true);
             } else { 
                 if(--numberAttempts > 0){           
                     result = numberCheck < number ? "Больше!" : "Меньше!";
@@ -128,7 +128,7 @@ function checkNumberPC(){
                     toChangeText("numberAttemptsID", "Количество попыток: " + numberAttempts);
                 }else{
                     toChangeText("messageID", "К сожелению у вас закончились попытки. Вы не угадали число: " + number);       
-                    DOM.elDisabled("numberToCheckID", true);
+                    DOM.Disable("numberToCheckID", true);
                 }
             }
             maxNum = maxNum || curDifficuty.range+1;
@@ -156,15 +156,15 @@ function newGameMan(){
     gameManBtnsDis(true);
     newNum.count = 0;
     tableClear()
-    DOM.elDisabled("AIRangeID", false)
-    DOM.id("AIRangeID").oninput = function(){
+    DOM.Disable("AIRangeID", false)
+    DOM.Id("AIRangeID").oninput = function(){
         brain = this.value;
         toChangeText("AIRangeTextID", "Интелект компьютера: " + brain + " - " + brainNames[brain-1])
     };
 }
 
 function newNum(result){
-    DOM.elDisabled("AIRangeID", true);
+    DOM.Disable("AIRangeID", true);
     if(newNum.count>0){tableAdd(newNum.count, "№"+newNum.count, number, result, "~"+rate+"%")};
     newNum.count = (newNum.count || 0) + 1;
     switch(result){
@@ -232,14 +232,14 @@ function endGame(status){
         toChangeText("messageID", "Так не можыт быть вы где-то ошиблись!");
     }
     gameManBtnsDis(true);
-    DOM.elDisabled("AIRangeID", false);
+    DOM.Disable("AIRangeID", false);
     toChangeText("numberAttemptsID", "");
 }
 
 function gameManBtnsDis(bool){
     const gameManBtns = ["moreID", "lessID", "pcRightID"];
     for(let i = 0; i < gameManBtns.length; i++){
-        DOM.elDisabled(gameManBtns[i], bool);
+        DOM.Disable(gameManBtns[i], bool);
     } 
 }
 
