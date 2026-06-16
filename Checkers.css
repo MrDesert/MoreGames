@@ -1,0 +1,10 @@
+#checkersBoard {
+    background-color: green;
+    width: 400px;
+    display: flex;
+    flex-wrap: wrap;
+    border: solid rgb(104, 42, 1) 15px;
+}
+.checker{
+    position: relative;
+}
