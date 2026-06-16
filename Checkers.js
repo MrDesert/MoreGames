@@ -20,7 +20,7 @@ function newGame(){
         } else if(i > 0){
             i--;
         } else {
-            document.getElementById(cell)['append'](Object.assign(document.createElement("div"), {id: "checkers"+cell, className: "checker", style: "height: " + 40 + "px; width: " + 40 + "px; left:" + 5 + "px; top: 5px; background: white; border-radius: 50%" }));
+            document.getElementById(cell)['append'](Object.assign(document.createElement("div"), {id: "checkers"+cell, className: "checker", style: "height: " + 40 + "px; width: " + 40 + "px; left:" + 5 + "px; top: 5px; background: red; border-radius: 50%" }));
         }
     })
 }
