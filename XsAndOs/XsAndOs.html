@@ -2,17 +2,17 @@
 <html>
     <head>
         <title>MoreGames</title>
-        <link rel="stylesheet" href="Checkers.css">
+        <link rel="stylesheet" href="XsAndOs.css">
     </head>
     <body>
-        <script src="main.js"></script>
-        <h1>Новичок 1-10</h1>
-        <h3>Загадывает компьютер</h3>
-        <div>
+        <script src="tools/main.js" onerror="this.onerror=null; const newScript = document.createElement('script'); newScript.src = 'https://mrdesert.github.io/Tools/main.js'; document.head.appendChild(newScript);"></script><!-- Локальный файл для релиза, сетевой для разработки -->
+        <h1 hidden>Новичок 1-10</h1>
+        <h3 hidden>Загадывает компьютер</h3>
+        <div hidden>
             <button id="modePC" value="gamePCID" onclick="gameMode(this)">Вы отгадываете, компьютер загадывает</button>
             <button id="modeMan" value="gameManID" onclick="gameMode(this)">Вы загадываете, компьютер отгадывает</button>
         </div>
-        <div>
+        <div hidden>
             <h4>Выберите режим</h4>
             <button id="modeA" value="10" onclick="difficulty(this)">Новичок 1-10</button>
             <button id="modeB" value="100" onclick="difficulty(this)">Классика 1-100</button>
@@ -21,7 +21,7 @@
             <button id="modeE" onclick="difficulty(this)">Пользовательский 1-∞</button>
             <input type="number" id="customRangeID" placeholder="Введите размер диапазона" hidden>
         </div>
-        <div id="gameAll">
+        <div id="gameAll" hidden>
             <h3 id="taskID"></h3>
             <div id="messageID"></div>
             <p id="numberAttemptsID"></p>
@@ -31,14 +31,14 @@
             <button id="checkNumberBtnID" onclick="checkNumberPC()">Проверить число</button>
             <button onclick="newGamePC()">Новое число!</button>
         </div>
-        <div id="gameManID">
+        <div id="gameManID" hidden>
             <input type="range" name="" id="AIRangeID" max="4" min="1" value="3"><div id="AIRangeTextID"></div>
             <button id="moreID" onclick="newNum('Больше!')">Больше</button>
             <button id="lessID" onclick="newNum('Меньше!')">Меньше</button>
             <button id="pcRightID" onclick="endGame('win')">Угадал!</button>
             <button onclick="newGameMan(); newNum()">Новое число!</button>
         </div>
-        <details>
+        <details hidden>
             <summary>История ходов</summary>
             <table>
                 <tr><th>Попытка</th><th>Число</th><th>Результат</th><th>Вероятность угадать</th></tr>
@@ -46,13 +46,13 @@
             </table>
         </details>
         <button onclick="newGame()">Новая игра</button>
-        <div id="checkersBoard">
+        <div id="XsAndOsBoard">
 
         </div>
         <footer style="position: fixed; bottom: 0px; left:50%; transform: translateX(-50%);">© by MrDesert - alpha v0.0.7.5</footer>
 
         <script src="console.js" onload="createConsole(true, 'F2')"></script>
         <script src="https://mrdesert.github.io/DOM.js/DOM.js"></script>
-        <script src="Checkers.js"></script>
+        <script src="XsAndOs.js"></script>
     </body>
 </html>

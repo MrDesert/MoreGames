@@ -1,0 +1,16 @@
+#XsAndOsBoard {
+    position: relative;
+    background-color: green;
+    width: 157px;
+    display: flex;
+    flex-wrap: wrap;
+    border: solid rgb(0, 0, 0) 5px;
+}
+.cell {
+    height: 50px;
+    width: 50px;
+    background: rgb(170, 170, 170);
+    border: solid rgb(0, 0, 0) 1px;
+    font-size: 30pt;
+    text-align: center;
+}
