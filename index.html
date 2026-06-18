@@ -7,7 +7,7 @@
     <body>
                 <script src="main.js"></script>
         <h1 id="nameGameID">MoreGames</h1>
-        <button id="bonusBtn">🎁 Получить бонус (30 сек рекламы)</button>
+        <button id="bonusBtn" onclick="adRevarded()">🎁 Получить бонус (30 сек рекламы)</button>
         <div hidden id="escapeBtnID" onclick="gamesBack(this)"><div class="circleBtn">⬅</div></div>
         <div id="moreAndLessID">
             <div class="headerGamesID">Число загадывает компьютер</div>
@@ -82,8 +82,36 @@
                 </details>
             </div>
         </div>
-        <footer style="position: fixed; bottom: 0px; left:50%; transform: translateX(-50%);">© by MrDesert - alpha v0.0.9.2.2</footer>
-
+        <footer style="position: fixed; bottom: 0px; left:50%; transform: translateX(-50%);">© by MrDesert - alpha v0.0.9.2.3</footer>
+        <script>
+    // Ждём загрузки страницы
+    
+    // document.addEventListener('DOMContentLoaded', function() {
+    //     const bonusBtn = document.getElementById('bonusBtn');
+        
+    //     // Проверяем, что кнопка существует
+    //     if (bonusBtn) {
+    //         bonusBtn.onclick = function() {
+    //             // Отправляем сообщение родительскому окну
+    //             window.parent.postMessage('show_ad', '*');
+                
+    //             // Блокируем кнопку, чтобы не нажали дважды
+    //             bonusBtn.disabled = true;
+    //             bonusBtn.textContent = '⏳ Загрузка...';
+                
+    //         };
+    //     }
+    // });
+    function adRevarded(){
+        console.log("работает")
+                        // Отправляем сообщение родительскому окну
+                window.parent.postMessage('show_ad', '*');
+                
+                // Блокируем кнопку, чтобы не нажали дважды
+                bonusBtn.disabled = true;
+                bonusBtn.textContent = '⏳ Загрузка...';
+    }
+</script>
         <script src="console.js" onload="createConsole(true, 'F2')"></script>
         <script src="https://mrdesert.github.io/Tools/main.js"></script>
         <script src="https://mrdesert.github.io/Tools/DOM.js"></script>
