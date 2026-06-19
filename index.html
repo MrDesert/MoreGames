@@ -82,7 +82,7 @@
                 </details>
             </div>
         </div>
-        <footer style="position: fixed; bottom: 0px; left:50%; transform: translateX(-50%);">© by MrDesert - alpha v0.0.9.2.7</footer>
+        <footer style="position: fixed; bottom: 0px; left:50%; transform: translateX(-50%);">© by MrDesert - alpha v0.0.9.2.8</footer>
         <script>
     function adRevarded(){
                         // Отправляем сообщение родительскому окну
@@ -97,6 +97,20 @@
                 bonusBtn.disabled = true;
                 bonusBtn.textContent = '⏳ Загрузка...';
     }
+
+        window.addEventListener('message', function handler(event) {
+            const data = event.data;
+            
+            console.log("game.html получил:", data);
+            
+            // Только если это старт и реклама не идёт
+            if (data && data.type === "finish") {
+                console.log("Реклама завершена, награда:", tipeGive);
+                alert('🎉 Вы получили ' + tipeGive + '!');
+                bonusBtn.disabled = false;
+                bonusBtn.textContent = '🎁 Получить бонус (30 сек рекламы)';
+            }
+        }, {once: true});
 </script>
         <script src="console.js" onload="createConsole(true, 'F2')"></script>
         <script src="https://mrdesert.github.io/Tools/main.js"></script>
