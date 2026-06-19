@@ -82,10 +82,11 @@
                 </details>
             </div>
         </div>
-        <footer style="position: fixed; bottom: 0px; left:50%; transform: translateX(-50%);">© by MrDesert - alpha v0.0.9.2.6</footer>
+        <footer style="position: fixed; bottom: 0px; left:50%; transform: translateX(-50%);">© by MrDesert - alpha v0.0.9.2.7</footer>
         <script>
     function adRevarded(){
                         // Отправляем сообщение родительскому окну
+                console.log("Игра отправила запрос на рекламу!")
                 window.parent.postMessage({
                     type: "start",
                     typeAd: "rewarded",
